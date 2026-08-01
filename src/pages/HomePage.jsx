@@ -26,19 +26,49 @@ export default function HomePage() {
 
   return (
     <div className="home-page">
-      <section className="dashboard-intro">
-        <h1>JSONPlaceholder Dashboard</h1>
-        <p>Latest posts (card view). Use the links below to view other resources.</p>
+      <section className="home-hero">
+        <div className="hero-copy">
+          <span className="hero-badge">Dashboard</span>
+          <h1>Explore ZaviLearning with animated insights</h1>
+          <p>
+            Discover a clean interactive dashboard for exploring posts, todos, users, albums,
+            and photos.
+          </p>
+          <div className="hero-actions">
+            <Link className="button button-primary" to="/posts">
+              Explore Posts
+            </Link>
+            <Link className="button button-secondary" to="/about">
+              About Dashboard
+            </Link>
+            <Link className="button button-secondary" to="/creator">
+              About Creator
+            </Link>
+          </div>
+        </div>
+
+        <div className="hero-visuals">
+        
+          <div className="visual-card visual-card-1">Fast API access</div>
+          <div className="visual-card visual-card-3">Clean interface</div>
+        </div>
       </section>
 
-      
+      <section className="dashboard-intro">
+        <h2>Welcome to the ZaviLearning Dashboard</h2>
+        <p>
+          Ready-to-use React dashboard content for learners who want a complete real-app experience
+          with posts, todos, users, albums, and photos.
+        </p>
+        <p>Use the cards below to quickly access different ZaviLearning resources with smooth UI transitions and animations.</p>
+      </section>
 
       <section className="resource-summary" style={{ marginTop: '1.5rem' }}>
         {resourceConfig.map((resource) => (
           <article className="summary-card" key={resource.key}>
             <p className="summary-label">{resource.label}</p>
             <strong>{resource.description}</strong>
-            <p className="summary-detail">Load {resource.label} from the JSONPlaceholder API.</p>
+            <p className="summary-detail">Load {resource.label} from the ZaviLearning API.</p>
             <Link className="summary-link" to={`/${resource.key}`}>
               View {resource.label}
             </Link>

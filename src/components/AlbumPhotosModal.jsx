@@ -7,6 +7,7 @@ export default function AlbumPhotosModal({ album, onClose }) {
   const [loading, setLoading] = useState(true);
   const photoScrollerRef = useRef(null);
   const placeholderTags = ['album1', 'album2', 'album3', 'album4'];
+  const publicUrl = process.env.PUBLIC_URL || '';
 
   useEffect(() => {
     let mounted = true;
@@ -18,7 +19,12 @@ export default function AlbumPhotosModal({ album, onClose }) {
     return () => { mounted = false; };
   }, [album]);
 
-  const placeholderImages = ['/images/album1.png', '/images/album2.png', '/images/album3.png', '/images/user.png'];
+  const placeholderImages = [
+    `${publicUrl}/images/album1.png`,
+    `${publicUrl}/images/album2.png`,
+    `${publicUrl}/images/album3.png`,
+    `${publicUrl}/images/user.png`,
+  ];
 
   const handleImageError = (event) => {
     event.target.onError = null;

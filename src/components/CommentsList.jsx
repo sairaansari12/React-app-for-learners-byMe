@@ -50,7 +50,7 @@ export default function CommentsList({ postId }) {
       {comments.map((c) => (
         <div key={c.id} className="comment-item">
           <div className="comment-avatar-row">
-            <img className="comment-avatar" src="/images/user.png" alt={`${c.name} avatar`} />
+            <img className="comment-avatar" src={`${process.env.PUBLIC_URL}/images/user.png`} alt={`${c.name} avatar`} />
             <div>
               <strong>{c.name}</strong>
               <div className="comment-email">{c.email}</div>

@@ -6,12 +6,14 @@ const navItems = [
   { to: '/posts', label: 'Posts' },
   { to: '/todos', label: 'Todos' },
   { to: '/users', label: 'Users' },
+  { to: '/about', label: 'About' },
+  { to: '/creator', label: 'Creator' },
 ];
 
 export default function Header() {
   return (
     <header className="top-header">
-      <div className="brand">JSONPlaceholder Dashboard</div>
+      <div className="brand">ZaviLearning Dashboard</div>
       <nav className="site-nav">
         {navItems.map((item) => (
           <NavLink

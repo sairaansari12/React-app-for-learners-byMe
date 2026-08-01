@@ -1,12 +1,19 @@
 {
   "name": "json-dashboard",
   "version": "1.0.0",
+  "homepage": "https://sairaansari12.github.io/React-app-for-learners-byMe",
   "private": true,
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
+    "webpack:start": "webpack serve --config webpack.config.js --mode development",
+    "webpack:build": "webpack --config webpack.config.js --mode production",
+    "vite:start": "vite",
+    "vite:build": "vite build"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.5",
@@ -29,5 +36,25 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "gh-pages": "^6.3.0",
+    "@babel/core": "^7.22.10",
+    "@babel/preset-env": "^7.22.20",
+    "@babel/preset-react": "^7.22.5",
+    "babel-loader": "^9.1.4",
+    "clean-webpack-plugin": "^4.0.0",
+    "css-loader": "^6.9.4",
+    "html-webpack-plugin": "^5.5.3",
+    "style-loader": "^3.4.4",
+    "vite": "^5.4.1",
+    "@vitejs/plugin-react": "^4.3.0",
+    "@vitejs/plugin-legacy": "^3.1.0",
+    "vite-plugin-svgr": "^4.0.1",
+    "vite-plugin-eslint": "^1.8.1",
+    "eslint": "^8.57.0",
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.2.1",
+    "webpack-dev-server": "^4.16.1"
   }
 }

@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import resourceConfig from '../data/resourceConfig';
 import { fetchResource } from '../store';
@@ -19,13 +20,21 @@ export default function ResourcePage({ resource }) {
     }
   }, [config, dispatch, resource, resourceState]);
 
-  // If we're viewing albums, ensure users are loaded to show album owners
+  // If we're viewing albums or posts, ensure users are loaded to show author names and owners
   const usersState = useSelector((state) => state.resources.users);
   useEffect(() => {
-    if (resource === 'albums' && usersState && usersState.status === 'idle') {
+    if ((resource === 'albums' || resource === 'posts') && usersState && usersState.status === 'idle') {
       dispatch(fetchResource('users'));
     }
   }, [resource, usersState, dispatch]);
+
+  const usersById = React.useMemo(() => {
+    const users = (usersState && usersState.items) || [];
+    return users.reduce((map, user) => {
+      map[user.id] = user;
+      return map;
+    }, {});
+  }, [usersState]);
 
   if (!config) {
     return <div className="alert-error">Resource not found</div>;
@@ -62,7 +71,6 @@ export default function ResourcePage({ resource }) {
       <div className="page-header">
         <div>
           <h1>{config.label}</h1>
-          <p>{config.description}</p>
           {/* Endpoint URLs are intentionally hidden from the UI */}
         </div>
       </div>
@@ -76,7 +84,6 @@ export default function ResourcePage({ resource }) {
 
       <div className="resource-meta">
         <span>Total items: {items.length}</span>
-        <span>Fetch status: {status}</span>
       </div>
 
       <div className="resource-sample">
@@ -93,22 +100,42 @@ export default function ResourcePage({ resource }) {
           <div className="user-list">
             {sample.map((user) => (
               <article className="user-card" key={user.id}>
-                <img className="user-avatar" src="/images/user.png" alt={`${user.name} avatar`} />
-                <h3>{user.name}</h3>
+                <img className="user-avatar" src={`${process.env.PUBLIC_URL}/images/user.png`} alt={`${user.name} avatar`} />
+                <h3>
+                  <Link className="user-action-text" to={`/users/${user.id}`}>
+                    {user.name}
+                  </Link>
+                </h3>
                 <p className="user-detail"><span className="detail-icon">@</span>{user.username}</p>
                 <p className="user-detail"><span className="detail-icon">✉️</span>{user.email}</p>
                 <p className="user-detail"><span className="detail-icon">🌐</span>{user.website}</p>
                 <p className="user-detail"><span className="detail-icon">🏢</span>{user.company?.name}</p>
-                <span className="user-action-text" onClick={() => setSelectedUser(user)} role="button" tabIndex={0}>
+                <a
+                  className="user-action-text"
+                  href="#"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setSelectedUser(user);
+                  }}
+                >
                   View Albums
-                </span>
+                </a>
               </article>
             ))}
           </div>
         ) : resource === 'posts' ? (
           <div className="post-grid">
             {sample.map((post) => (
-              <PostCard key={post.id} post={post} onViewComments={(p) => setSelectedPost(p)} />
+              <PostCard
+                key={post.id}
+                post={post}
+                authorName={usersById[post.userId]?.name || `User ${post.userId}`}
+                authorLink={`/users/${post.userId}`}
+                onViewComments={(p) => setSelectedPost({
+                  ...p,
+                  authorName: usersById[p.userId]?.name || `User ${p.userId}`,
+                })}
+              />
             ))}
           </div>
         ) : resource === 'albums' ? (
@@ -136,7 +163,7 @@ export default function ResourcePage({ resource }) {
               <tr>
                 <th>ID</th>
                 <th>Title / Name</th>
-                <th>Extra</th>
+                <th>Status</th>
               </tr>
             </thead>
             <tbody>
@@ -160,7 +187,7 @@ export default function ResourcePage({ resource }) {
       {selectedPost && <PostModal post={selectedPost} onClose={() => setSelectedPost(null)} />}
       {selectedUser && <UserAlbumsModal user={selectedUser} onClose={() => setSelectedUser(null)} />}
 
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <div className="resource-pagination-row">
         <div className="resource-meta">Page {page} of {totalPages}</div>
         <Pagination total={total} page={page} pageSize={pageSize} onPageChange={setPage} />
       </div>
