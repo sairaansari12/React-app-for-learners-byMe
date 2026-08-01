@@ -8,8 +8,9 @@ export default function CreatorPage() {
           <article className="banner-slide banner-slide-main">
             <div>
               <img
-                src={`${process.env.PUBLIC_URL}/images/saira.jpeg`}
+                src={`${process.env.PUBLIC_URL}/images/saira.jpg`}
                 alt="Saira Ansari"
+                onContextMenu={(e) => e.preventDefault()}
                 className="slide-image"
               />
               <div className="linkedin-follow">
