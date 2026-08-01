@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.css": "/sairaansari12/React-app-for-learners-byMe/static/css/main.79dc5abb.css",
-    "main.js": "/sairaansari12/React-app-for-learners-byMe/static/js/main.3ff03a93.js",
-    "index.html": "/sairaansari12/React-app-for-learners-byMe/index.html",
-    "main.79dc5abb.css.map": "/sairaansari12/React-app-for-learners-byMe/static/css/main.79dc5abb.css.map",
-    "main.3ff03a93.js.map": "/sairaansari12/React-app-for-learners-byMe/static/js/main.3ff03a93.js.map"
+    "main.css": "/React-app-for-learners-byMe/static/css/main.79dc5abb.css",
+    "main.js": "/React-app-for-learners-byMe/static/js/main.3ff03a93.js",
+    "index.html": "/React-app-for-learners-byMe/index.html",
+    "main.79dc5abb.css.map": "/React-app-for-learners-byMe/static/css/main.79dc5abb.css.map",
+    "main.3ff03a93.js.map": "/React-app-for-learners-byMe/static/js/main.3ff03a93.js.map"
   },
   "entrypoints": [
     "static/css/main.79dc5abb.css",
